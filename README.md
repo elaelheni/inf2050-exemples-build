@@ -49,14 +49,16 @@ compléter.
 
 ## Autres commandes
 
-Pour sortir de la machine de la machine virtuelle:
+### Sortir de la machine virtuelle:
 
     vagrant@vagrant$ exit
 
-Pour supprimer la machine virtuelle et libérée l'espace disque:
+### Supprimer la machine virtuelle et libérer l'espace disque:
+
+#### Linux / MacOS
 
     $ vagrant destroy
 
-ou, en Windows:
+#### Windows 10
 
     > vagrant.exe destroy
