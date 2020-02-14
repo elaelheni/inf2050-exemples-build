@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ivy-module version="2.0">
+
+  <info 
+    organisation="ca.uqam.inf2050"
+    module="hello"
+    revision="0.1"
+  />
+
+  <configurations>
+    <conf name="compile"/>
+    <conf name="runtime"/>
+    <conf name="test-compile"/>
+    <conf name="test-runtime"/>
+  </configurations>
+
+  <dependencies>
+    <dependency conf="compile->default" org="commons-lang" name="commons-lang" rev="2.0" />
+
+    <dependency conf="test-compile->default" org="org.junit.jupiter" name="junit-jupiter-api" rev="5.3.1" />
+
+    <dependency conf="test-runtime->default" org="org.junit.jupiter" name="junit-jupiter-engine" rev="5.3.1" />
+    <dependency conf="test-runtime->default" org="org.junit.platform" name="junit-platform-console" rev="1.4.0-M1"/>
+  </dependencies>
+
+</ivy-module>

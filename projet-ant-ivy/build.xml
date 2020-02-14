@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" default="default">
+
+  <!--
+  Variables utilisées dans le build
+  -->
+
+  <property name="build.dir" location="build"/>
+  <property name="build.classes.dir" location="${build.dir}/classes"/>
+  <property name="build.docs.dir" location="${build.dir}/docs"/>
+  <property name="build.test.classes.dir" location="${build.dir}/test-classes"/>
+  <property name="build.test.reports.dir" location="${build.dir}/test-reports"/>
+  <property name="dist.dir" location="dist"/>
+  <property name="dist.lib.dir" location="${dist.dir}/lib"/>
+  <property name="dist.jar" location="${dist.dir}/application.jar"/>
+  <property name="dist.uber.jar" location="${dist.dir}/application-dependencies-all.jar"/>
+  <property name="dist.lib.all-deps.jar" location="${dist.lib.dir}/dependencies-all.jar"/>
+  <property name="lib.dir" location="lib"/>
+  <property name="src.dir" location="src"/>
+  <property name="test.dir" location="test"/>
+
+  <property name="main.class.name" value="Application"/>
+
+  <!--
+  Déclaration des 3 classpaths:
+    - Pour la compilation du code source applicatif
+    - Pour la compilation du code source de test
+    - Pour l'exécution des tests
+  -->
+
+  <path id="compile.classpath">
+    <fileset dir="${lib.dir}/compile" includes="**/*.jar"/>
+  </path>
+
+  <path id="test.compile.classpath">
+    <path refid="compile.classpath"/>
+    <pathelement location="${build.classes.dir}"/>
+    <fileset dir="${lib.dir}/test-compile" includes="**/*.jar"/>
+  </path>
+
+  <path id="test.runtime.classpath">
+    <path refid="test.compile.classpath"/>
+    <pathelement location="${build.test.classes.dir}"/>
+    <fileset dir="${lib.dir}/test-runtime" includes="**/*.jar"/>
+  </path>
+
+  <!--
+  Compilation du code source applicatif
+  -->
+
+  <target name="compile" depends="dependencies" description="Compile le code source applicatif">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.classes.dir}"/>
+    <javac
+        srcdir="${src.dir}"
+        destdir="${build.classes.dir}"
+        includeantruntime="false">
+      <classpath>
+        <path refid="compile.classpath"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <!--
+  Compilation du code source des tests
+  -->
+
+  <target name="compile-test" depends="dependencies, compile" description="Compile le code source de test">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${build.test.classes.dir}"/>
+    <javac
+        srcdir="${test.dir}"
+        destdir="${build.test.classes.dir}"
+        includeantruntime="false">
+      <classpath>
+        <path refid="test.compile.classpath"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <!--
+  Création d'une archive JAR exécutable
+  -->
+
+  <target name="jar" depends="compile" description="Produit l'archive JAR">
+    <mkdir dir="${dist.dir}"/>
+    <jar destfile="${dist.jar}" basedir="${build.classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main.class.name}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <!--
+  Création de la Javadoc
+  -->
+
+  <target name="docs" description="Produit la javadoc du projet">
+    <mkdir dir="${build.docs.dir}"/>
+    <javadoc destdir="${build.docs.dir}">
+      <fileset dir="${src.dir}"/>
+    </javadoc>
+  </target>
+
+  <!--
+  Phony target pour la distribution.
+  -->
+
+  <target name="dist" depends="jar, docs" description="Produit l'archive au format JAR ainsi que la javadoc"/>
+
+  <!--
+  Copie des dépendances dans le répertoire lib
+  -->
+
+  <target name="copy-dependencies" depends="dependencies">
+    <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${dist.lib.dir}"/>
+    <jar jarfile="${dist.lib.all-deps.jar}">
+      <zipgroupfileset dir="${lib.dir}/compile">
+        <include name="**/*.jar" />
+      </zipgroupfileset>
+    </jar>
+  </target>
+
+  <!--
+  Création d'un "über-jar" i.e. un JAR, dans ce cas-ci exécutable, qui comprend
+  aussi les classes des dépendances.
+  -->
+
+  <target name="uber-jar" depends="compile, copy-dependencies" description="Produit l'archive au format JAR qui contient toutes les dépendances">
+    <mkdir dir="${dist.dir}"/>
+    <jar destfile="${dist.uber.jar}" basedir="${build.classes.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main.class.name}"/>
+      </manifest>
+      <zipfileset src="${dist.lib.all-deps.jar}" excludes="META-INF/*.SF" />
+    </jar>
+  </target>
+
+  <!--
+  Exécution des tests unitaires avec jUnit5. Nécessite Ant 1.10.3+.
+  Nécessite l'installation de JARs spécifiques dans le répertoire $ANT_HOME/lib.
+
+    - opentest4j.jar
+    - junit-platform-launcher.jar
+    - junit-platform-engine.jar
+    - junit-platform-commons.jar
+  -->
+
+  <target name="test.launcher" depends="dependencies, compile-test">
+    <mkdir dir="${build.test.reports.dir}"/>
+    <junitlauncher>
+      <classpath refid="test.runtime.classpath"/>
+      <testclasses outputdir="${build.test.reports.dir}">
+        <fileset dir="${build.test.classes.dir}"/>
+      </testclasses>
+    </junitlauncher>
+  </target>
+
+  <!--
+  Affichage du résultat de l'exécution des tests à la console.
+  -->
+
+  <target name="test.console.launcher" depends="dependencies, compile-test">
+    <java classpathref="test.runtime.classpath" classname="org.junit.platform.console.ConsoleLauncher" fork="true" failonerror="true">
+      <arg value="--scan-classpath"/>
+      <arg line="--reports-dir ${build.test.reports.dir}"/>
+    </java>
+  </target>
+
+  <!--
+  Phony target pour l'exécution des tests.
+  -->
+
+  <target name="test" depends="test.launcher, test.console.launcher" description="Exécute les tests unitaires"/>
+
+  <!--
+  Téléchargement des dépendances avec Ivy. Nécessite l'installation du JAR
+  d'Ivy dans le répertoire $ANT_HOME/lib:
+
+    - ivy-2.5.0-rc1.jar
+  -->
+
+  <target name="dependencies" description="Télécharge les dépendances">
+    <ivy:retrieve log="quiet" pattern="${lib.dir}/[conf]/[artifact].[ext]"/>
+  </target>
+
+  <!--
+  Nettoyage partiel ou complet des fichiers générés ou téléchargés.
+  -->
+
+  <target name="clean" description="Supprime le répertoire de build">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="clean-dist" depends="clean" description="Supprime le répertoire de build et le répertoire de distribution">
+    <delete dir="${dist.dir}"/>
+  </target>
+
+  <target name="destroy" depends="clean-dist" description="Supprime le répertoire de build, de distribution et de dépendances">
+    <delete dir="${lib.dir}"/>
+  </target>
+
+  <!--
+  Phony target par défaut.
+  -->
+
+  <target
+    name="default"
+    depends="test, dist"
+    description="Exécute les tests unitaire et produit l'archive au format JAR"/>
+
+</project>
