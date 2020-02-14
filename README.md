@@ -36,7 +36,7 @@ compléter.
 
 ### Linux / MacOS 
 
-    $ vagrant up
+    $ vagrant ssh
     vagrant@vagrant$ cd /vagrant/projet-maven
     vagrant@vagrant$ mvn test
 
