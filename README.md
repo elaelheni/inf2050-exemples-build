@@ -96,3 +96,14 @@ adéquate pour votre système d'exploitation.
 L'exécution de la commande `vagrant reload` peut être suffisant pour régler le
 problème. L'exécution de `vagrant destroy` puis de `vagrant up` pourrait être
 nécessaire.
+
+
+## Remerciements
+
+Un grand merci aux personnes qui m'ont aidées à tester cette preuve de concept!
+(en ordre d'apparition dans le channel Slack):
+
+- Alix JM
+- Terry Dias
+- Gaël Stébenne
+- Sofiane
