@@ -66,7 +66,7 @@ compléter.
 
 ## Troubleshooting
 
-### Un message indique qu'une extension du BIOS est désactivée
+### VT-x is disabled in the BIOS for all CPU modes
 
 Le message suivant peut subvenir lors de la première exécution de Vagrant:
 
@@ -88,7 +88,8 @@ activée et la modification du BIOS n'est pas nécessaire.
 Ce message d'erreur vagrant peut apparaître pour différentes raisons.
 
 Vérifiez d'abord que les extensions de virtualisation sont activées dans le
-BIOS et que vous utilisez une version à jour de VirtualBox.
+BIOS et que vous utilisez une version à jour de VirtualBox et que celle-ci est
+adéquate pour votre système d'exploitation.
 
 L'exécution de la commande `vagrant reload` peut être suffisant pour régler le
 problème. L'exécution de `vagrant destroy` puis de `vagrant up` pourrait être
