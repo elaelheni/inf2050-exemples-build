@@ -13,7 +13,7 @@
 
 ---
 
-⚠️ L'exécution de la commande `vagrant up` prend plusieurs minutes à se
+:warning: L'exécution de la commande `vagrant up` prend plusieurs minutes à se
 compléter.
 
 ---
@@ -39,7 +39,7 @@ Dans Powershell ou cmder
 
 ---
 
-⚠️ La toute première exécution de la commande `mvn` prend quelques minutes à se
+:warning: La toute première exécution de la commande `mvn` prend quelques minutes à se
 compléter.
 
 ---
