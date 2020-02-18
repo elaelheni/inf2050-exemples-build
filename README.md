@@ -5,6 +5,8 @@
 - VirtualBox: https://www.virtualbox.org/wiki/Downloads
 - Vagrant: https://www.vagrantup.com/downloads.html
 - git: https://git-scm.com/downloads
+- Les extensions de virtualisation (VT-x ou AMD-V) doivent être activées dans le
+  BIOS de votre ordinateur.
 
 
 ## Installation initiale
