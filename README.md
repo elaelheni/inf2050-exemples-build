@@ -37,14 +37,14 @@ compléter.
 ### Linux / MacOS
 
     $ vagrant ssh
-    vagrant@vagrant$ cd /vagrant/projet-maven
-    vagrant@vagrant$ mvn test
+    vagrant@vagrant:~$ cd /vagrant/projet-maven
+    vagrant@vagrant:/vagrant/projet-maven$ mvn test
 
 ### Windows 10
 
     > vagrant.exe ssh
-    vagrant@vagrant$ cd /vagrant/projet-maven
-    vagrant@vagrant$ mvn test
+    vagrant@vagrant:~$ cd /vagrant/projet-maven
+    vagrant@vagrant:/vagrant/projet-maven$ mvn test
 
 
 ## Autres commandes
