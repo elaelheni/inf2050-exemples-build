@@ -11,8 +11,12 @@
 
 ## Installation initiale
 
-*Attention* : l'exécution de la commande `vagrant up` prend plusieurs minutes à se
+---
+
+⚠️ L'exécution de la commande `vagrant up` prend plusieurs minutes à se
 compléter.
+
+---
 
 ### Linux / MacOS
 
@@ -33,8 +37,12 @@ Dans Powershell ou cmder
 
 ## Exécution du projet Maven
 
-*Info* : la toute première exécution de la commande `mvn` prend quelques minutes à se
+---
+
+⚠️ La toute première exécution de la commande `mvn` prend quelques minutes à se
 compléter.
+
+---
 
 ### Linux / MacOS
 
