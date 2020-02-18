@@ -4,7 +4,7 @@
 
 - VirtualBox: https://www.virtualbox.org/wiki/Downloads
 - Vagrant: https://www.vagrantup.com/downloads.html
-- git
+- git: https://git-scm.com/downloads
 
 
 ## Installation initiale
@@ -12,7 +12,7 @@
 *Attention* : l'exécution de la commande `vagrant up` prend plusieurs minutes à se
 compléter.
 
-### Linux / MacOS 
+### Linux / MacOS
 
 Dans un terminal:
 
@@ -34,7 +34,7 @@ Dans Powershell ou cmder
 *Info* : la toute première exécution de la commande `mvn` prend quelques minutes à se
 compléter.
 
-### Linux / MacOS 
+### Linux / MacOS
 
     $ vagrant ssh
     vagrant@vagrant$ cd /vagrant/projet-maven
@@ -62,3 +62,34 @@ compléter.
 #### Windows 10
 
     > vagrant.exe destroy
+
+
+## Troubleshooting
+
+### Un message indique qu'une extension du BIOS est désactivée
+
+Le message suivant peut subvenir lors de la première exécution de Vagrant:
+
+    VBoxManage.exe: error: Not in a hypervisor partition (HVP=0) (VERR_NEM_NOT_AVAILABLE).
+    VBoxManage.exe: error: VT-x is disabled in the BIOS for all CPU modes (VERR_VMX_MSR_ALL_VMX_DISABLED)
+
+Les architectures Intel requièrent parfois l'activation des extensions de
+virtualisation (VT-x) dans le BIOS de votre ordinateur. Vérifiez la
+documentation du manufacturier pour savoir comment entrer dans le BIOS
+(généralement en appuyant sur F2 ou F12 au boot). Vous pourrez alors activer
+l'option.
+
+L'option équivalente pour les architectures AMD (AMD-V) est habituellement déjà
+activée et la modification du BIOS n'est pas nécessaire.
+
+
+### The guest machine entered an invalid state while waiting for it to boot.
+
+Ce message d'erreur vagrant peut apparaître pour différentes raisons.
+
+Vérifiez d'abord que les extensions de virtualisation sont activées dans le
+BIOS et que vous utilisez une version à jour de VirtualBox.
+
+L'exécution de la commande `vagrant reload` peut être suffisant pour régler le
+problème. L'exécution de `vagrant destroy` puis de `vagrant up` pourrait être
+nécessaire.
