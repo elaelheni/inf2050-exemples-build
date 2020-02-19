@@ -24,7 +24,7 @@ Dans un terminal:
 
 ### Windows 10
 
-Dans cmd, powershell ou cmder
+Dans cmd, powershell, cmder ou tout autre terminal:
 
     > git clone https://github.com/fxg42/inf2050-exemples-build.git
     > cd inf2050-exemples-build
