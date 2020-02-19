@@ -24,7 +24,7 @@ Dans un terminal:
 
 ### Windows 10
 
-Dans Powershell ou cmder
+Dans cmd, powershell ou cmder
 
     > git clone https://github.com/fxg42/inf2050-exemples-build.git
     > cd inf2050-exemples-build
@@ -49,7 +49,7 @@ compléter.
     vagrant@vagrant:/vagrant/projet-maven$ mvn test
 
 
-## Autres commandes
+## :shell: Autres commandes
 
 ### Sortir de la machine virtuelle:
 
