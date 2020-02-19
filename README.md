@@ -33,6 +33,9 @@ Dans cmd, powershell, cmder ou tout autre terminal:
 
 ## :rocket: Exécution du projet Maven
 
+L'exécution du projet maven sert de vérification de l'installation de la machine
+virtuelle.
+
 > :warning: La toute première exécution de la commande `mvn` prend quelques minutes à se
 compléter.
 
@@ -64,6 +67,10 @@ compléter.
 #### Windows 10
 
     > vagrant.exe destroy
+
+### Arrêter la machine virtuelle
+
+    $ vagrant halt
 
 
 ## :bomb: Troubleshooting
