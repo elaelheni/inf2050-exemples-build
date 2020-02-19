@@ -1,6 +1,6 @@
 # INF2050. Exemples de systèmes de build automatisés
 
-## Prérequis
+## :clipboard: Prérequis
 
 - VirtualBox: https://www.virtualbox.org/wiki/Downloads
 - Vagrant: https://www.vagrantup.com/downloads.html
@@ -9,14 +9,10 @@
   BIOS de votre ordinateur.
 
 
-## Installation initiale
+## :wrench: Installation initiale
 
----
-
-:warning: L'exécution de la commande `vagrant up` prend plusieurs minutes à se
+> :warning: L'exécution de la commande `vagrant up` prend plusieurs minutes à se
 compléter.
-
----
 
 ### Linux / MacOS
 
@@ -35,14 +31,10 @@ Dans Powershell ou cmder
     > vagrant.exe up
 
 
-## Exécution du projet Maven
+## :rocket: Exécution du projet Maven
 
----
-
-:warning: La toute première exécution de la commande `mvn` prend quelques minutes à se
+> :warning: La toute première exécution de la commande `mvn` prend quelques minutes à se
 compléter.
-
----
 
 ### Linux / MacOS
 
@@ -74,7 +66,7 @@ compléter.
     > vagrant.exe destroy
 
 
-## Troubleshooting
+## :bomb: Troubleshooting
 
 ### VT-x is disabled in the BIOS for all CPU modes
 
@@ -101,12 +93,12 @@ Vérifiez d'abord que les extensions de virtualisation sont activées dans le
 BIOS et que vous utilisez une version à jour de VirtualBox et que celle-ci est
 adéquate pour votre système d'exploitation.
 
-L'exécution de la commande `vagrant reload` peut être suffisant pour régler le
+L'exécution de la commande `vagrant reload` peut être suffisante pour régler le
 problème. L'exécution de `vagrant destroy` puis de `vagrant up` pourrait être
 nécessaire.
 
 
-## Remerciements
+## :tada: Remerciements
 
 Un grand merci aux personnes qui m'ont aidées à tester cette preuve de concept!
 (en ordre d'apparition dans le channel Slack):
